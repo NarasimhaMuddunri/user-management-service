@@ -14,6 +14,7 @@ public class CreateUserRequest {
 	private int phoneNumber;
 	
 	private String address;
+	
 
 	public String getUserName() {
 		return userName;

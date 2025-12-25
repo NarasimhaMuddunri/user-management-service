@@ -3,15 +3,21 @@ package com.user.management.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.user.management.exception.UserNotFoundException;
 import com.user.management.model.CreateUserRequest;
 import com.user.management.model.CreateUserResponse;
+import com.user.management.model.GetUserSpecificResponse;
 import com.user.management.service.UserManagementServiceInterface;
 
 
 @Service
 public class UserManagementServiceImpl implements UserManagementServiceInterface{
+	
+	//@Autowired
+	//private UserRepository
 
 	@Override
 	public CreateUserResponse createUser(CreateUserRequest createUserRequest) {
@@ -23,7 +29,6 @@ public class UserManagementServiceImpl implements UserManagementServiceInterface
 		System.out.println("====Address====="+ createUserRequest.getAddress());
 		System.out.println("====phoneNumber====="+ createUserRequest.getPhoneNumber());
 
-		
 		
 		CreateUserResponse createUserResponse = new CreateUserResponse();
 		
@@ -47,6 +52,44 @@ public class UserManagementServiceImpl implements UserManagementServiceInterface
 		usersList.add(userName3);	
 		
 		return usersList;
+	}
+
+	@Override
+	public GetUserSpecificResponse getUserSpeficicData(String userId) throws UserNotFoundException {
+		
+		// connect with DB, get with userSpecificDat
+		GetUserSpecificResponse getUserSpecificResponse =  new GetUserSpecificResponse() ;
+		
+		// make a call to DB -- Optional<User> user object
+		// if(user==null) { 			throw new UserNotFoundException("the requested user is not available in Data base", exception);
+//} == thow exception where user is NA
+		// DB user data -- 
+		try {
+	
+    // null.set()
+		getUserSpecificResponse.setAddress("h-2034,street1,Hyd");
+		getUserSpecificResponse.setUserName(userId);
+		getUserSpecificResponse.setEmailId("xyz@gmail.com");
+		
+		
+		}catch(NullPointerException exception) {
+			
+			throw new UserNotFoundException("the requested user is not available in Data base", exception);
+			
+		}catch(Exception e) {
+			
+		}
+		
+		
+		
+		
+		return getUserSpecificResponse;
+	}
+
+	@Override
+	public String deleteUser(String userId) {
+		
+		return "user : "+ userId+ ": deleted successfully from the system";
 	}
 
 }

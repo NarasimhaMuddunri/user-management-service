@@ -4,20 +4,23 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.user.management.exception.UserNotFoundException;
 import com.user.management.model.CreateUserRequest;
 import com.user.management.model.CreateUserResponse;
+import com.user.management.model.GetUserSpecificResponse;
 import com.user.management.service.UserManagementServiceInterface;
 
 @RestController
 @RequestMapping("/user")
 public class UserManagementController {
-	
 	
 	@Autowired
 	private UserManagementServiceInterface userManagementServiceInterface;
@@ -48,6 +51,25 @@ public class UserManagementController {
 		return userManagementServiceInterface.getAllUsers();
 
 	}
+	
+	
+	@GetMapping("/getUser/{userId}")
+    public GetUserSpecificResponse getUserById(@PathVariable String userId) throws UserNotFoundException {
+    	
+		System.out.println("******* the userId is"+ userId);
+		
+		GetUserSpecificResponse getUserSpecificResponse = userManagementServiceInterface.getUserSpeficicData(userId);
+    	
+		return getUserSpecificResponse;
+    }
+	
+	
+	@DeleteMapping("/{userId}")
+	public String deleteUser(@PathVariable String userId) {
+		
+		return userManagementServiceInterface.deleteUser(userId);
+	}
+	
 	
 	
 	public CreateUserResponse validateCreateUserRequest(CreateUserRequest createUserRequest, CreateUserResponse createUserResponse) {
