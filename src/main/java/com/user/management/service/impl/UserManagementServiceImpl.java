@@ -58,7 +58,7 @@ public class UserManagementServiceImpl implements UserManagementServiceInterface
 	public GetUserSpecificResponse getUserSpeficicData(String userId) throws UserNotFoundException {
 		
 		// connect with DB, get with userSpecificDat
-		GetUserSpecificResponse getUserSpecificResponse =  new GetUserSpecificResponse() ;
+		GetUserSpecificResponse getUserSpecificResponse = null ;
 		
 		// make a call to DB -- Optional<User> user object
 		// if(user==null) { 			throw new UserNotFoundException("the requested user is not available in Data base", exception);
